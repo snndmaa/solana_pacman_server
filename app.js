@@ -13,7 +13,7 @@ const scoresRouter = require("./routes/scores");
 
 const app = express();
 
-const url = process.env.REACT_APP_URL || "http://localhost:3000";
+const url = 'https://solana-pacman-client-prqf46vsz-byrons-projects-4346ee7b.vercel.app';
 
 app.use(logger("dev"));
 app.use(express.json());
