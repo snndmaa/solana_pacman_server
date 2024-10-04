@@ -1,20 +1,26 @@
 const mongoose = require("mongoose");
 
-beforeAll(function (done) {
-  mongoose.connect("mongodb://127.0.0.1/pacman-test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  var db = mongoose.connection;
-  db.on("error", console.error.bind(console, "MongoDB connection error:"));
-  db.on("open", function () {
-    done();
-  });
+beforeAll((done) => {
+  const uri = "mongodb+srv://sandman:sobriety@cluster0.lr58k.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  
+  mongoose.connect(uri)
+    .then(() => {
+      console.log("MongoDB connected successfully.");
+      done();
+    })
+    .catch((err) => {
+      console.error("MongoDB connection error:", err);
+      done(err); // Call done with error to fail the test setup
+    });
 });
 
-afterAll(function (done) {
-  mongoose.connection.close(true, function () {
-    done();
+afterAll((done) => {
+  mongoose.connection.close(true, (err) => {
+    if (err) {
+      console.error("Error closing MongoDB connection:", err);
+    } else {
+      console.log("MongoDB connection closed.");
+    }
+    done(); // Always call done to signal completion
   });
 });
