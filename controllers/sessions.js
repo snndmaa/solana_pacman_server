@@ -20,6 +20,7 @@ const sessionMiddleware = session({
 const SessionsController = {
   Index: (req, res) => {
     // Send back the user data from session if available
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
       res.send({ user: req.session.user });
   },
 
@@ -35,6 +36,7 @@ const SessionsController = {
 
           if (result) {
             // Set the session with user information
+            res.setHeader('Access-Control-Allow-Credentials', 'true');
             req.session.user = {
               _id: user._id,
               username: user.username,
