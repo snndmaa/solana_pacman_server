@@ -16,7 +16,7 @@ const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ 
-    mongoUrl: "mongodb://localhost:27017/pacman", // MongoDB URL
+    mongoUrl: "mongodb+srv://sandman:sobriety@cluster0.lr58k.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0", // MongoDB URL
     collectionName: "sessions",  // Collection to store sessions
   }),
   cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day session
