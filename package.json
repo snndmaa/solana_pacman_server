@@ -23,7 +23,7 @@
     "http-errors": "~1.6.3",
     "mongoose": "^6.4.5",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.19",
+    "nodemon": "^2.0.19"
   },
   "devDependencies": {
     "jest": "^28.1.2"
