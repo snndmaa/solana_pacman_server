@@ -24,12 +24,7 @@ const sessionMiddleware = session({
 
 const SessionsController = {
   Index: (req, res) => {
-    // Send back the user data from session if available
-    if (req.session.user) {
       res.send({ user: req.session.user });
-    } else {
-      res.status(401).send({ message: "No user session found" });
-    }
   },
 
   Create: (req, res) => {
