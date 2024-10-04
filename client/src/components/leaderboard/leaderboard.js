@@ -18,7 +18,7 @@ export default function Leaderboard({ variables }) {
     try {
       const res = await axios.get(scoresUrl);
       const scores = res.data;
-
+      console.log(scores)
       const maxScore = Math.max(...scores.map(score => score.score));
 
       while (scores.length < 10) {
@@ -91,7 +91,7 @@ export default function Leaderboard({ variables }) {
                 return (
                   <tr className="entry" key={index} aria-label={index}>
                     <td className="rank">{index + 1}</td>
-                    <td className="name">{score.user.username}</td>
+                    <td className="name">{score.user ? score.user.username : "--"}</td>
                     <td className="points">{score.score}</td>
                   </tr>
                 );
