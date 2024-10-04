@@ -22,7 +22,7 @@ app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(sessionMiddleware); // To manage sessions with MongoDB
 
 // const allowedDomain = 'https://solana-pacman-client.vercel.app';  // Replace with your trusted domain
-const allowedDomain = 'http:localhost:3000';
+const allowedDomain = 'http://localhost:3000';
 
 app.use(cors({
   origin: allowedDomain, // Allow requests from this domain
