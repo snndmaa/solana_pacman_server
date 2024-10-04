@@ -13,7 +13,6 @@ const scoresRouter = require("./routes/scores");
 
 const app = express();
 
-const url = 'https://solana-pacman-client.vercel.app';
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -22,12 +21,24 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(sessionMiddleware); // To manage sessions with MongoDB
 
-app.use(
-  cors({
-    origin: url,
-    credentials: true,
-  })
-);
+const allowedDomain = 'https://solana-pacman-client.vercel.app';  // Replace with your trusted domain
+
+app.use(cors({
+  origin: allowedDomain, // Allow requests from this domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allow all common HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],  // Allow common headers
+  credentials: true,  // Allow cookies or other credentials
+  preflightContinue: false,  // Do not pass the preflight request to the next handler
+  optionsSuccessStatus: 204  // Some legacy browsers (e.g., IE11) choke on 204
+}));
+
+// Handle preflight requests (OPTIONS)
+app.options('*', cors({
+  origin: allowedDomain,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  credentials: true
+}));
 
 
 app.use("/users", usersRouter);
