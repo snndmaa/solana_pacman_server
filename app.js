@@ -6,8 +6,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const session = require("express-session");
 
-const {sessionMiddleware} = require("./controllers/sessions")
-
 const usersRouter = require("./routes/users");
 const sessionsRouter = require("./routes/sessions");
 const scoresRouter = require("./routes/scores");
@@ -18,10 +16,16 @@ const url = process.env.REACT_APP_URL || "http://localhost:3000";
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(sessionMiddleware);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+app.use(session({
+  secret: 'zzzzzz', // Change this to a secure secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  // Set to true if using HTTPS
+}));
 
 app.use(
   cors({
